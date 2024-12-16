@@ -31,28 +31,76 @@ impl Framebuffer {
         unsafe { &*(wasm4_sys::FRAMEBUFFER.cast::<[Cell<u8>; 6400]>()) }
     }
 
-    pub fn line(&self, start: [i32; 2], end: [i32; 2]) {
-        unsafe { wasm4_sys::line(start[0], start[1], end[0], end[1]) }
+    pub fn line(&self, start: [i32; 2], end: [i32; 2], color: DrawIndex) {
+        unsafe {
+            wasm4_sys::DRAW_COLORS.write(DrawIndices::from_array([
+                color,
+                Default::default(),
+                Default::default(),
+                Default::default(),
+            ]).into());
+            wasm4_sys::line(start[0], start[1], end[0], end[1]);
+        }
     }
 
-    pub fn hline(&self, start: [i32; 2], len: u32) {
-        unsafe { wasm4_sys::hline(start[0], start[1], len) }
+    pub fn hline(&self, start: [i32; 2], len: u32, color: DrawIndex) {
+        unsafe {
+            wasm4_sys::DRAW_COLORS.write(DrawIndices::from_array([
+                color,
+                Default::default(),
+                Default::default(),
+                Default::default(),
+            ]).into());
+            wasm4_sys::hline(start[0], start[1], len);
+        }
     }
 
-    pub fn vline(&self, start: [i32; 2], len: u32) {
-        unsafe { wasm4_sys::vline(start[0], start[1], len) }
+    pub fn vline(&self, start: [i32; 2], len: u32, color: DrawIndex) {
+        unsafe {
+            wasm4_sys::DRAW_COLORS.write(DrawIndices::from_array([
+                color,
+                Default::default(),
+                Default::default(),
+                Default::default(),
+            ]).into());
+            wasm4_sys::vline(start[0], start[1], len);
+        }
     }
 
-    pub fn oval(&self, start: [i32; 2], shape: [u32; 2]) {
-        unsafe { wasm4_sys::oval(start[0], start[1], shape[0], shape[1]) }
+    pub fn oval(&self, start: [i32; 2], shape: [u32; 2], fill: DrawIndex, outline: DrawIndex) {
+        unsafe {
+            wasm4_sys::DRAW_COLORS.write(DrawIndices::from_array([
+                fill,
+                outline,
+                Default::default(),
+                Default::default(),
+            ]).into());
+            wasm4_sys::oval(start[0], start[1], shape[0], shape[1]);
+        }
     }
 
-    pub fn rect(&self, start: [i32; 2], shape: [u32; 2]) {
-        unsafe { wasm4_sys::rect(start[0], start[1], shape[0], shape[1]) }
+    pub fn rect(&self, start: [i32; 2], shape: [u32; 2], fill: DrawIndex, outline: DrawIndex) {
+        unsafe {
+            wasm4_sys::DRAW_COLORS.write(DrawIndices::from_array([
+                fill,
+                outline,
+                Default::default(),
+                Default::default(),
+            ]).into());
+            wasm4_sys::rect(start[0], start[1], shape[0], shape[1]);
+        }
     }
 
-    pub fn text(&self, text: &str, start: [i32; 2]) {
-        unsafe { wasm4_sys::textUtf8(text.as_ptr(), text.len(), start[0], start[1]) }
+    pub fn text(&self, text: &str, start: [i32; 2], fg: DrawIndex, bg: DrawIndex) {
+        unsafe { 
+            wasm4_sys::DRAW_COLORS.write(DrawIndices::from_array([
+                fg,
+                bg,
+                Default::default(),
+                Default::default(),
+            ]).into());
+            wasm4_sys::textUtf8(text.as_ptr(), text.len(), start[0], start[1]);
+        }
     }
 
     pub fn blit(&self, sprite: &impl Blit, start: [i32; 2], transform: BlitTransform) {
