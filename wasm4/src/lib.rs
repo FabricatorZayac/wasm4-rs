@@ -13,6 +13,7 @@ pub mod __private;
 pub mod draw;
 pub mod rt;
 pub mod sound;
+pub mod control;
 mod utils;
 
 pub use self::utils::OutOfDomainError;
