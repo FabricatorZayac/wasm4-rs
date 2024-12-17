@@ -21,7 +21,12 @@ impl Resources {
             framebuffer: crate::draw::Framebuffer::new_(),
             controls: crate::control::Controls {
                 mouse: crate::control::Mouse::new_(),
-                gamepad: crate::control::Gamepad::new_(),
+                gamepads: [
+                    crate::control::Gamepad::new_(wasm4_sys::GAMEPAD1),
+                    crate::control::Gamepad::new_(wasm4_sys::GAMEPAD2),
+                    crate::control::Gamepad::new_(wasm4_sys::GAMEPAD3),
+                    crate::control::Gamepad::new_(wasm4_sys::GAMEPAD4),
+                ],
             }
         }
     }

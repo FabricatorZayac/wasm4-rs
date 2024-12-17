@@ -4,7 +4,7 @@ use wasm4_sys::*;
 
 pub struct Controls {
     pub mouse: Mouse,
-    pub gamepad: Gamepad,
+    pub gamepads: [Gamepad; 4],
 }
 
 pub struct Mouse(PhantomData<*const ()>);
@@ -34,15 +34,13 @@ pub struct MouseState {
     pub buttons: [bool; 3],
 }
 
-pub struct Gamepad(PhantomData<*const ()>);
+pub struct Gamepad(*const u8);
 impl Gamepad {
-    pub(crate) unsafe fn new_() -> Self {
-        Self(PhantomData)
+    pub(crate) unsafe fn new_(gamepad: *const u8) -> Self {
+        Self(gamepad)
     }
-    pub fn state(&self, id: usize) -> GamepadState {
-        let gamepad = unsafe {
-            [*GAMEPAD1, *GAMEPAD2, *GAMEPAD3, *GAMEPAD4]
-        }[id];
+    pub fn state(&self) -> GamepadState {
+        let gamepad = unsafe { *self.0 };
 
         GamepadState {
             buttons: [
