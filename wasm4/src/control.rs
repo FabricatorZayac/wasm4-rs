@@ -20,18 +20,23 @@ impl Mouse {
         MouseState {
             x,
             y,
-            buttons: [
-                buttons & MOUSE_LEFT != 0,
-                buttons & MOUSE_RIGHT != 0,
-                buttons & MOUSE_MIDDLE != 0,
-            ]
+            buttons: MouseButtons {
+                left: buttons & MOUSE_LEFT != 0,
+                right: buttons & MOUSE_RIGHT != 0,
+                middle: buttons & MOUSE_MIDDLE != 0,
+            }
         }
     }
 }
 pub struct MouseState {
     pub x: i16,
     pub y: i16,
-    pub buttons: [bool; 3],
+    pub buttons: MouseButtons,
+}
+pub struct MouseButtons {
+    pub left: bool,
+    pub right: bool,
+    pub middle: bool,
 }
 
 pub struct Gamepad(*const u8);
