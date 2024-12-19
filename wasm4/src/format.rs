@@ -2,7 +2,10 @@
 macro_rules! tracef {
     ($($arg:tt)*) => {{
         $crate::trace($crate::format::format_no_std::show(
-            $crate::format::BUF_SLICE.expect("Logger not initialized"),
+            unsafe { match &mut $crate::format::BUF_SLICE {
+                Some(slice) => slice,
+                None => panic!("Logger not initialized"),
+            }},
             ::core::format_args!($($arg)*)
         ).unwrap());
     }};
