@@ -9,6 +9,8 @@ pub struct Resources {
     pub sound: crate::sound::Audio,
     pub framebuffer: crate::draw::Framebuffer,
     pub controls: crate::control::Controls,
+    #[cfg(feature = "tracef")]
+    pub logger: crate::format::Log,
 }
 
 #[doc(hidden)]
@@ -27,7 +29,9 @@ impl Resources {
                     crate::control::Gamepad::new_(wasm4_sys::GAMEPAD3),
                     crate::control::Gamepad::new_(wasm4_sys::GAMEPAD4),
                 ],
-            }
+            },
+            #[cfg(feature = "tracef")]
+            logger: crate::format::Log::new_(),
         }
     }
 }
