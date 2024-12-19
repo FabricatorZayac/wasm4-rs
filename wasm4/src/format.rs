@@ -13,7 +13,7 @@ macro_rules! tracef {
 
 pub use format_no_std;
 
-static mut BUF_SLICE: Option<&mut [u8]> = None;
+pub static mut BUF_SLICE: Option<&mut [u8]> = None;
 
 pub struct Log;
 impl Log {
