@@ -8,6 +8,7 @@ pub trait Runtime {
 pub struct Resources {
     pub sound: crate::sound::Audio,
     pub framebuffer: crate::draw::Framebuffer,
+    pub controls: crate::control::Controls,
 }
 
 #[doc(hidden)]
@@ -18,6 +19,15 @@ impl Resources {
         Resources {
             sound: crate::sound::Audio(()),
             framebuffer: crate::draw::Framebuffer::new_(),
+            controls: crate::control::Controls {
+                mouse: crate::control::Mouse::new_(),
+                gamepads: [
+                    crate::control::Gamepad::new_(wasm4_sys::GAMEPAD1),
+                    crate::control::Gamepad::new_(wasm4_sys::GAMEPAD2),
+                    crate::control::Gamepad::new_(wasm4_sys::GAMEPAD3),
+                    crate::control::Gamepad::new_(wasm4_sys::GAMEPAD4),
+                ],
+            }
         }
     }
 }
