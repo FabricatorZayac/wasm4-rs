@@ -10,12 +10,12 @@ macro_rules! tracef {
 
 pub use format_no_std;
 
-static mut BUF_SLICE: Option<&str> = None;
+static mut BUF_SLICE: Option<&mut [u8]> = None;
 
 pub struct Log;
 impl Log {
     pub(crate) fn new_() -> Self { Log }
-    pub fn init(self, buf: &'static mut str) {
+    pub fn init(self, buf: &'static mut [u8]) {
         unsafe { BUF_SLICE = Some(buf) };
     }
 }
