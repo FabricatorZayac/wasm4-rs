@@ -19,6 +19,9 @@ mod utils;
 pub use self::utils::OutOfDomainError;
 pub use wasm4_sys as sys;
 
+#[cfg(feature = "tracef")]
+pub mod format;
+
 pub fn trace(msg: &str) {
     unsafe { sys::traceUtf8(msg.as_ptr(), msg.len()) }
 }

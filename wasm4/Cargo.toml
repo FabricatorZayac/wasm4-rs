@@ -14,9 +14,11 @@ edition = "2021"
 [features]
 std = []
 include-sprites = ["dep:wasm4-impl"]
+tracef = ["dep:format_no_std"]
 
 [dependencies]
 bitflags = "1.3.2"
+format_no_std = { version = "1.2.0", optional = true }
 
 [dependencies.wasm4-sys]
 path = "../wasm4-sys"
