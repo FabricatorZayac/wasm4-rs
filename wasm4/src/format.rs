@@ -1,12 +1,14 @@
 #[macro_export]
 macro_rules! tracef {
     ($($arg:tt)*) => {{
-        $crate::trace(::format_no_std::show(
-            *BUF_SLICE,
+        $crate::trace($crate::format::format_no_std::show(
+            *$crate::format::BUF_SLICE,
             ::core::format_args!($($arg)*)
         ).unwrap());
     }};
 }
+
+pub use format_no_std;
 
 static mut BUF_SLICE: Option<&str> = None;
 
