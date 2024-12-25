@@ -70,10 +70,10 @@ impl GamepadState {
         GamepadState {
             buttons: self.buttons,
             dpad: Directions { 
-                up: if self.dpad.up ^ self.dpad.down { self.dpad.up } else { false },
-                down: if self.dpad.up ^ self.dpad.down { self.dpad.down } else { false },
-                left: if self.dpad.left ^ self.dpad.right { self.dpad.left } else { false },
-                right: if self.dpad.left ^ self.dpad.right { self.dpad.right } else { false },
+                up: self.dpad.up && !self.dpad.down,
+                down: self.dpad.down && !self.dpad.up,
+                left: self.dpad.left && !self.dpad.right,
+                right: self.dpad.right && !self.dpad.left,
             },
         }
     }
