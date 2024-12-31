@@ -28,11 +28,13 @@ impl Mouse {
         }
     }
 }
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct MouseState {
     pub x: i16,
     pub y: i16,
     pub buttons: MouseButtons,
 }
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct MouseButtons {
     pub left: bool,
     pub right: bool,
@@ -61,6 +63,7 @@ impl Gamepad {
         }
     }
 }
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct GamepadState {
     pub buttons: [bool; 2],
     pub dpad: Directions,
@@ -78,6 +81,7 @@ impl GamepadState {
         }
     }
 }
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Directions {
     up: bool,
     down: bool,
